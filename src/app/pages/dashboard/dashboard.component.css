@@ -1,0 +1,13 @@
+.navbar {
+    background-color: var(--fourty-color);
+    color: white;
+}
+
+.dropdown-toggle {
+    box-shadow: none !important;
+border: none !important;
+}
+
+.dropdown-menu {
+    margin-right: 5%;
+}

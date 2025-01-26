@@ -1,6 +1,11 @@
+
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import Swal from 'sweetalert2'
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -10,8 +15,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+
+  /**
+   * Variable del formulario
+   */
   loginForm: FormGroup;
 
+  /**
+   * Tipos de documentos
+   */
   typeD: Array<string> = [
     "Cédula de Ciudadanía",
     "Carné Diplomático",
@@ -30,19 +42,29 @@ export class LoginComponent {
     "Documento Extranjero",
   ]
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private _router: Router) {
     this.loginForm = this.fb.group({
       identificacion: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
   }
 
+  /**
+   * Iniciar sesión
+   */
   onSubmit() {
     if (this.loginForm.valid) {
       console.log('Formulario válido, datos:', this.loginForm.value);
-      alert('Inicio de sesión exitoso');
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Se ha iniciado sesión",
+        showConfirmButton: false,
+        timer: 1000
+      });
+      this._router.navigateByUrl("/dashboard");
     } else {
-      alert('Por favor, completa todos los campos correctamente.');
+
     }
   }
 }

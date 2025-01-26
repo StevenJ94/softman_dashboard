@@ -1,1 +1,50 @@
+<nav class="navbar sticky-top px-md-5 px-0">
+  <div class="container-fluid d-flex justify-content-between">
+    <a class="navbar-brand" [routerLink]="['/dashboard']">
+      <img
+        src="/img/logo_lumier.png"
+        alt="Logo"
+        width="50"
+        height="50"
+        class="d-inline-block align-text-top"
+      />
+    </a>
+    <div class="">
+      <button
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        class="dropdown-toggle d-flex align-items-center btn bg-transparent text-white"
+        href="#"
+        role="button"
+      >
+        <span class="mb-0"> LUMIER PRUEBA </span>
+        <img
+          src="/img/user_png.png"
+          alt="Logo"
+          width="50"
+          height="50"
+          class="d-inline-block align-text-top mx-2"
+        />
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+          <a
+            class="btn bg-transparent text-primary dropdown-item"
+            [routerLink]="['/dashboard/profile']"
+          >
+            Editar perfil
+          </a>
+          <button
+            class="btn bg-transparent text-primary dropdown-item"
+            (click)="close()"
+          >
+            Cerrar sesión
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 <router-outlet />
