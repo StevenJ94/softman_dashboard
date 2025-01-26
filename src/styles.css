@@ -1,1 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --primary-color: #1fbbec;
+    --secondary-color: #2780c2;
+    --terceary-color: #144262;
+    --fourty-color : #32b1ca;
+
+    --bg-color: #efefef;
+}
+
+.__conenedor {
+    padding: 0px;
+    margin: 0px;
+    background-color: var(--bg-color);
+}
+
+._button-primary {
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+    border-radius: 5px;
+    transition: 0.5s;
+    cursor: pointer;    
+}
+
+._button-primary:hover {
+    background-color: var(--fourty-color);
+}
+
+._button-secondary {
+    padding: 10px;
+    background-color: var(--terceary-color);
+    color: white;
+    font-weight: 500;
+    border-radius: 5px;
+    transition: 0.5s;
+    cursor: pointer;    
+}
+
+._button-secondary:hover {
+    background-color: var(--secondary-color);
+}
