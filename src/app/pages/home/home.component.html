@@ -1,16 +1,39 @@
-<table class="table">
+<table class="table w-100 table-hover">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col"></th>
+      <th scope="col">Id del paciente</th>
+      <th scope="col">Nombre del paciente</th>
+      <th scope="col">Fecha de la cita</th>
+      <th scope="col">Modalidad - Examen</th>
+      <th scope="col">Estado</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
+    @for (item of lista; track $index) {
+    <tr class="_tr-list" (click)="item.seleccionado = !item.seleccionado">
+      <td class="">
+        <input type="checkbox" [(ngModel)]="item.seleccionado" />
+      </td>
+      <td class="">{{ item.idPaciente }}</td>
+      <td class="">{{ item.nombrePaciente }}</td>
+      <td class="">{{ item.fechaCita }}</td>
+      <td class="">{{ item.procedimiento }}</td>
+      <td class="">{{ item.estado }}</td>
+      <td class="">
+        <div class="d-flex">
+          <button class="_button-primary" (click)="reporte(item, $event)">
+            <i class="fas fa-print"></i> Reporte</button
+          ><button
+            class="_button-primary mx-3"
+            (click)="visualizar(item, $event)"
+          >
+            <i class="fas fa-eye"></i> Visualizar
+          </button>
+        </div>
+      </td>
     </tr>
+    }
   </tbody>
 </table>
