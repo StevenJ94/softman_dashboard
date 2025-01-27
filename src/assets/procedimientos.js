@@ -201,7 +201,7 @@ export const reports = [
   },
   {
     nombrePaciente: "Camila Torres",
-    idPaciente: "CC 54321",
+    idPaciente: "CC 54320",
     contrato: "Contrato Laura",
     procedencia: "Consulta Externa",
     procedimiento: "Radiografía de mano izquierda",

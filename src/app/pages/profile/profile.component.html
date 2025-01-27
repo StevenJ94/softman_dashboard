@@ -1,97 +1,107 @@
 <div
-  class="container mt-4 d-flex flex-lg-row flex-column justify-content-lg-between"
+  class="container mt-4 d-flex flex-lg-row flex-column w-100 justify-content-lg-around"
 >
-  <div class="card col-lg-4 col-12">
-    <div class="card-body">
-      <h3>Datos de usuario</h3>
-      <hr />
-      <div class="d-flex flex-column mb-3">
-        <p class="mb-0 fw-bolder">Identificación:</p>
-        <span>
-          {{ datosUser?.identificacion }}
-        </span>
+  <div class="col-lg-4 col-12">
+    <div class="card">
+      <div class="card-body">
+        <h3>Datos de usuario</h3>
+        <hr />
+        <div class="d-flex flex-column mb-3">
+          <p class="mb-0 fw-bolder">Nombre:</p>
+          <span> Lumier Prueba </span>
+          <p class="mb-0 fw-bolder">Usuario:</p>
+          <span>
+            {{ datosUser?.identificacion }}
+          </span>
+          <p class="mb-0 fw-bolder">Identificación:</p>
+          <span> CC {{ datosUser?.identificacion }} </span>
+        </div>
+        <h3>Cambiar correo:</h3>
+        <hr />
+        <div class="form-floating mb-3">
+          <input
+            type="email"
+            class="form-control"
+            id="floatingInputGroup1"
+            placeholder="123"
+            [(ngModel)]="correo"
+          />
+          <label for="floatingInputGroup1">Correo</label>
+        </div>
+        <button type="button" class="_button-primary" (click)="changeEmail()">
+          Actualizar correo
+        </button>
       </div>
-      <h3>Cambiar correo:</h3>
-      <hr />
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          class="form-control"
-          id="floatingInputGroup1"
-          placeholder="123"
-          [(ngModel)]="correo"
-        />
-        <label for="floatingInputGroup1">Correo</label>
-      </div>
-      <button type="button" class="_button-primary" (click)="changeEmail()">
-        Actualizar correo
-      </button>
     </div>
   </div>
-  <div class="card col-lg-4 col-12 mt-lg-0 mt-3">
-    <div class="card-body">
-      <h3>Cambiar contraseña</h3>
-      <hr />
-      <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
-        <!-- Campo de contraseña actual -->
-        <div class="mb-3">
-          <div class="form-floating">
-            <input
-              type="password"
-              class="form-control"
-              id="floatingInputGroup1"
-              placeholder="123"
-              formControlName="contraseñaActual"
-            />
-            <label for="floatingInputGroup1">Contraseña actual</label>
+  <div class="col-lg-4 col-12 mt-lg-0 my-3">
+    <div class="card">
+      <div class="card-body">
+        <h3>Cambiar contraseña</h3>
+        <hr />
+        <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+          <!-- Campo de contraseña actual -->
+          <div class="mb-3">
+            <div class="form-floating">
+              <input
+                type="password"
+                class="form-control"
+                id="floatingInputGroup1"
+                placeholder="123"
+                formControlName="contraseñaActual"
+              />
+              <label for="floatingInputGroup1">Contraseña actual</label>
+            </div>
+            @if (getControlError('contraseñaActual', 'required')) {
+            <p class="mb-0 text-danger">La contraseña actual es requerida</p>
+            }
           </div>
-          @if (getControlError('contraseñaActual', 'required')) {
-          <p class="mb-0 text-danger">La contraseña actual es requerida</p>
-          }
-        </div>
 
-        <!-- Campo de contraseña nueva -->
-        <div class="mb-3">
-          <div class="form-floating">
-            <input
-              type="password"
-              class="form-control"
-              id="floatingInputGroup1"
-              placeholder="123"
-              formControlName="contraseñaNueva"
-            />
-            <label for="floatingInputGroup1">Contraseña nueva</label>
+          <!-- Campo de contraseña nueva -->
+          <div class="mb-3">
+            <div class="form-floating">
+              <input
+                type="password"
+                class="form-control"
+                id="floatingInputGroup1"
+                placeholder="123"
+                formControlName="contraseñaNueva"
+              />
+              <label for="floatingInputGroup1">Contraseña nueva</label>
+            </div>
+            @if (getControlError('contraseñaNueva', 'required')) {
+            <p class="mb-0 text-danger">La contraseña nueva es requerida</p>
+            }
           </div>
-          @if (getControlError('contraseñaNueva', 'required')) {
-          <p class="mb-0 text-danger">La contraseña nueva es requerida</p>
-          }
-        </div>
 
-        <!-- Campo de confirma contraseña nueva -->
-        <div class="mb-3">
-          <div class="form-floating">
-            <input
-              type="password"
-              class="form-control"
-              id="floatingInputGroup1"
-              placeholder="123"
-              formControlName="contraseñaNuevaRepetida"
-            />
-            <label for="floatingInputGroup1">Confirmar contraseña nueva</label>
+          <!-- Campo de confirma contraseña nueva -->
+          <div class="mb-3">
+            <div class="form-floating">
+              <input
+                type="password"
+                class="form-control"
+                id="floatingInputGroup1"
+                placeholder="123"
+                formControlName="contraseñaNuevaRepetida"
+              />
+              <label for="floatingInputGroup1"
+                >Confirmar contraseña nueva</label
+              >
+            </div>
+            @if (getControlError('contraseñaNuevaRepetida', 'required')) {
+            <p class="mb-0 text-danger">Confirmar la contreseña es requerida</p>
+            } @if (filterForm.hasError('mismatch') &&
+            filterForm.get('contraseñaNuevaRepetida')?.touched) {
+            <p class="mb-0 text-danger">Las contraseñas no coinciden</p>
+            }
           </div>
-          @if (getControlError('contraseñaNuevaRepetida', 'required')) {
-          <p class="mb-0 text-danger">Confirmar la contreseña es requerida</p>
-          } @if (filterForm.hasError('mismatch') &&
-          filterForm.get('contraseñaNuevaRepetida')?.touched) {
-          <p class="mb-0 text-danger">Las contraseñas no coinciden</p>
-          }
-        </div>
 
-        <!-- Botón para enviar -->
-        <button type="submit" class="_button-primary">
-          Actualizar contraseña
-        </button>
-      </form>
+          <!-- Botón para enviar -->
+          <button type="submit" class="_button-primary">
+            Actualizar contraseña
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </div>

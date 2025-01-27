@@ -5,6 +5,7 @@ import { PageChangedEvent, PaginationModule } from 'ngx-bootstrap/pagination';
 import { FormsModule } from '@angular/forms'; // Importa FormsModule
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -37,7 +38,7 @@ export class HomeComponent {
    */
   viaChange: number = 1
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private _router: Router) {
     this.filterForm = this.fb.group({
       idPaciente: [''],
       nombre: [''],
@@ -67,7 +68,10 @@ export class HomeComponent {
    * Reportes
    */
   reporte(item: any, event: MouseEvent): void {
+    console.log(item);
+
     event.stopPropagation();
+    this._router.navigateByUrl(`/dashboard/diagnostico/${item.idPaciente}`)
     console.log('Generando reporte para:', item);
   }
 

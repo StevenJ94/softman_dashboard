@@ -113,7 +113,7 @@
     <!-- <div class="d-flex flex-lg-row flex-column">
     </div> -->
     <a
-      class="_button-secondary mt-lg-0 mt-3 text-decoration-none"
+      class="_button-secondary mt-lg-0 mt-3 text-decoration-none text-center"
       href="https://elasticbeanstalk-us-east-1-363506346873.s3.amazonaws.com/webpage/25_Manual_descarga.pdf"
       target="_blank"
     >
@@ -151,10 +151,13 @@
           <td class="">{{ item.estado }}</td>
           <td class="">
             <div class="d-flex">
-              <button class="_button-primary" (click)="reporte(item, $event)">
-                <i class="fas fa-print"></i> Reporte</button
+              <a
+                class="_button-primary text-decoration-none text-center"
+                (click)="reporte(item, $event)"
+              >
+                <i class="fas fa-print"></i> Reporte</a
               ><button
-                class="_button-primary mx-3"
+                class="_button-primary mx-3 text-center"
                 (click)="visualizar(item, $event)"
               >
                 <i class="fas fa-eye"></i> Visualizar
