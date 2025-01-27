@@ -62,9 +62,16 @@ export class LoginComponent {
         showConfirmButton: false,
         timer: 1000
       });
+      window.localStorage.setItem('user', JSON.stringify(this.loginForm.value))
       this._router.navigateByUrl("/dashboard");
     } else {
-
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Error, Verifique los datos ingresados",
+        showConfirmButton: false,
+        timer: 1000
+      });
     }
   }
 }

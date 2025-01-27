@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 //@ts-ignore
 import { reports } from '../../../assets/procedimientos'; // Ajusta la ruta según la ubicación de tu archivo
-import { FormsModule } from '@angular/forms'; // Importa FormsModule
 import { PageChangedEvent, PaginationModule } from 'ngx-bootstrap/pagination';
+import { FormsModule } from '@angular/forms'; // Importa FormsModule
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
