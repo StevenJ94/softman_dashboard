@@ -1,39 +1,186 @@
-<table class="table w-100 table-hover">
-  <thead>
-    <tr>
-      <th scope="col"></th>
-      <th scope="col">Id del paciente</th>
-      <th scope="col">Nombre del paciente</th>
-      <th scope="col">Fecha de la cita</th>
-      <th scope="col">Modalidad - Examen</th>
-      <th scope="col">Estado</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (item of lista; track $index) {
-    <tr class="_tr-list" (click)="item.seleccionado = !item.seleccionado">
-      <td class="">
-        <input type="checkbox" [(ngModel)]="item.seleccionado" />
-      </td>
-      <td class="">{{ item.idPaciente }}</td>
-      <td class="">{{ item.nombrePaciente }}</td>
-      <td class="">{{ item.fechaCita }}</td>
-      <td class="">{{ item.procedimiento }}</td>
-      <td class="">{{ item.estado }}</td>
-      <td class="">
-        <div class="d-flex">
-          <button class="_button-primary" (click)="reporte(item, $event)">
-            <i class="fas fa-print"></i> Reporte</button
-          ><button
-            class="_button-primary mx-3"
-            (click)="visualizar(item, $event)"
+<div class="__contenedor">
+  <div class="_filtros my-3">
+    <form [formGroup]="filterForm" (ngSubmit)="applyFilters()">
+      <div class="d-flex flex-lg-row flex-column justify-content-lg-between">
+        <!-- Filtro por ID del paciente -->
+        <div class="form-floating mb-3">
+          <input
+            type="number"
+            class="form-control"
+            id="idPaciente"
+            placeholder="123"
+            formControlName="idPaciente"
+            onkeydown="return event.keyCode !== 69"
+          />
+          <label for="floatingInputGroup1">ID del Paciente</label>
+        </div>
+
+        <!-- Filtro por nombre -->
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="nombre"
+            placeholder="Ingrese el nombre"
+            formControlName="nombre"
+          />
+          <label for="floatingInputGroup1">Nombre del Paciente</label>
+        </div>
+
+        <!-- Filtro por fecha inicio -->
+        <div class="form-floating mb-3">
+          <input
+            type="date"
+            class="form-control"
+            id="fechaInicio"
+            formControlName="fechaInicio"
+          />
+          <label for="floatingInputGroup1">Fecha Inicio</label>
+        </div>
+
+        <!-- Filtro por fecha fin -->
+        <div class="form-floating mb-3">
+          <input
+            type="date"
+            class="form-control"
+            id="fechaFin"
+            formControlName="fechaFin"
+          />
+          <label for="floatingInputGroup1">Fecha Fin</label>
+        </div>
+
+        <!-- Filtro por estado -->
+        <div class="form-floating mb-3">
+          <select id="estado" formControlName="estado" class="form-control">
+            <option [value]="null">Todos</option>
+            <option value="Entregado">Entregado</option>
+            <option value="En entrega de resultado">
+              En entrega de resultados
+            </option>
+            <option value="En diagnóstico">En diagnóstico</option>
+            <option value="En atencion">En atención</option>
+          </select>
+          <label for="floatingSelect">Estado</label>
+        </div>
+      </div>
+
+      <!-- Botón de aplicar filtros -->
+      <div class="row mt-3">
+        <div
+          class="col d-flex flex-md-row flex-column justify-content-md-between"
+        >
+          <button type="submit" class="_button-primary">Aplicar Filtros</button>
+          <button
+            type="button"
+            class="_button-secondary mt-md-0 mt-3"
+            (click)="resetFilters()"
           >
-            <i class="fas fa-eye"></i> Visualizar
+            Limpiar Filtros
           </button>
         </div>
-      </td>
-    </tr>
+      </div>
+    </form>
+  </div>
+  <hr />
+  <div
+    class="_otros my-3 d-flex flex-lg-row flex-column justify-content-lg-between w-100"
+  >
+    <div class="d-flex flex-lg-row flex-column">
+      <p class="mb-0 w-100">Compartir estudios vía:</p>
+      <select id="via" class="form-control mx-lg-2" [(ngModel)]="viaChange">
+        <option [value]="1">Whatsapp</option>
+        <option [value]="2">Correo</option>
+      </select>
+      <input
+        type="text"
+        class="form-control mt-lg-0 mt-2 mx-lg-3 mx-0"
+        [placeholder]="
+          viaChange == 1
+            ? 'Escriba el número de télefono'
+            : 'Escriba el correo electronico'
+        "
+      />
+      <p class="mb-0">Vigencia del link:</p>
+      <select id="via" class="form-control mx-lg-2">
+        <option [value]="1">1 día</option>
+        <option [value]="2">1 semana</option>
+        <option [value]="3">1 mes</option>
+      </select>
+      <button class="_button-primary mt-lg-0 mt-2 mx-lg-3 mx-0">
+        Compartir
+      </button>
+    </div>
+    <!-- <div class="d-flex flex-lg-row flex-column">
+    </div> -->
+    <a
+      class="_button-secondary mt-lg-0 mt-3 text-decoration-none"
+      href="https://elasticbeanstalk-us-east-1-363506346873.s3.amazonaws.com/webpage/25_Manual_descarga.pdf"
+      target="_blank"
+    >
+      <i class="fas fa-file-pdf"></i> Instructivo
+    </a>
+  </div>
+
+  <div class="_contenedor-table">
+    @if (returnedArray && (returnedArray.length > 0)) {
+    <table class="table w-100 table-hover border-1">
+      <thead>
+        <tr class="table-secondary border-1">
+          <th scope="col"></th>
+          <th scope="col">Id del paciente</th>
+          <th scope="col">Nombre del paciente</th>
+          <th scope="col">Fecha de la cita</th>
+          <th scope="col">Modalidad - Examen</th>
+          <th scope="col">Estado</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of returnedArray; track $index) {
+        <tr
+          class="_tr-list border-1"
+          (click)="item.seleccionado = !item.seleccionado"
+        >
+          <td class="">
+            <input type="checkbox" [(ngModel)]="item.seleccionado" />
+          </td>
+          <td class="">{{ item.idPaciente }}</td>
+          <td class="">{{ item.nombrePaciente }}</td>
+          <td class="">{{ item.fechaCita }}</td>
+          <td class="">{{ item.procedimiento }}</td>
+          <td class="">{{ item.estado }}</td>
+          <td class="">
+            <div class="d-flex">
+              <button class="_button-primary" (click)="reporte(item, $event)">
+                <i class="fas fa-print"></i> Reporte</button
+              ><button
+                class="_button-primary mx-3"
+                (click)="visualizar(item, $event)"
+              >
+                <i class="fas fa-eye"></i> Visualizar
+              </button>
+            </div>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    <div class="row">
+      <div class="col-xs-12 col-12 d-flex justify-content-center">
+        <pagination
+          [totalItems]="itemLength"
+          (pageChanged)="pageChanged($event)"
+          previousText="&lsaquo;"
+          nextText="&rsaquo;"
+          firstText="&laquo;"
+          lastText="&raquo;"
+        ></pagination>
+      </div>
+    </div>
+    } @else {
+    <div class="w-100 text-center mt-3 text-uppercase">
+      <h3>No hay datos disponibles</h3>
+    </div>
     }
-  </tbody>
-</table>
+  </div>
+</div>

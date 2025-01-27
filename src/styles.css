@@ -21,8 +21,13 @@
     border-radius: 5px;
     transition: 0.5s;
     cursor: pointer;
-    border: 0.5px solid var(--terceary-color);    
+    border: none   
 }
+
+input, select{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
 
 ._button-primary:hover {
     background-color: var(--fourty-color);
@@ -36,6 +41,7 @@
     border-radius: 5px;
     transition: 0.5s;
     cursor: pointer;    
+    border: none   
 }
 
 ._button-secondary:hover {
